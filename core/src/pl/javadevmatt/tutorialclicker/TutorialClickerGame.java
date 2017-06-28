@@ -17,12 +17,16 @@ public class TutorialClickerGame extends Game {
 	
 	private boolean paused;
 	
+	private int points;
 
 	@Override
 	public void create () {
 		this.setScreen(new SplashScreen(this));
 	}
 
+	public void addPoint() {
+		points++;
+	}
 	
 	/**
 	 * ---------------------
@@ -37,4 +41,10 @@ public class TutorialClickerGame extends Game {
 	public void setPaused(boolean paused) {
 		this.paused = paused;
 	}
+
+
+	public int getPoints() {
+		return points;
+	}
+
 }

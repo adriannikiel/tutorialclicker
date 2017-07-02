@@ -9,11 +9,12 @@ import pl.javadevmatt.tutorialclicker.ui.ScoreLabel;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class GameplayScreen extends AbstractScreen {
 
-	private Texture bgTexture;
+	private Image bgImg;
 	private Player player;
 	private Button playerButton, resetScoreButton;
 	private Label scoreLabel;
@@ -24,11 +25,16 @@ public class GameplayScreen extends AbstractScreen {
 
 	@Override
 	protected void init() {
-		bgTexture = new Texture("bg.png");
+		initBg();
 		initPlayer();
 		initPlayerButton();
 		initResetScoreButton();
 		initScoreLabel();
+	}
+
+	private void initBg() {
+		bgImg = new Image(new Texture("bg.png"));
+		stage.addActor(bgImg);
 	}
 
 	private void initScoreLabel() {
@@ -68,10 +74,6 @@ public class GameplayScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 		update();
-
-		spriteBatch.begin();
-		spriteBatch.draw(bgTexture, 0, 0);
-		spriteBatch.end();
 
 		spriteBatch.begin();
 		stage.draw();

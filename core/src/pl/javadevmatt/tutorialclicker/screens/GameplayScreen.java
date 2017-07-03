@@ -1,8 +1,7 @@
 package pl.javadevmatt.tutorialclicker.screens;
 
 import pl.javadevmatt.tutorialclicker.TutorialClickerGame;
-import pl.javadevmatt.tutorialclicker.entities.FlyingObject;
-import pl.javadevmatt.tutorialclicker.entities.FlyingObject.FlyingObjectType;
+import pl.javadevmatt.tutorialclicker.controllers.FlyingObjectController;
 import pl.javadevmatt.tutorialclicker.entities.Player;
 import pl.javadevmatt.tutorialclicker.ui.IClickCallback;
 import pl.javadevmatt.tutorialclicker.ui.PlayerButton;
@@ -20,7 +19,7 @@ public class GameplayScreen extends AbstractScreen {
 	private Player player;
 	private Button playerButton, resetScoreButton;
 	private Label scoreLabel;
-	private FlyingObject flyingObject1;
+	private FlyingObjectController flyingObjectController;
 
 	public GameplayScreen(TutorialClickerGame game) {
 		super(game);
@@ -33,13 +32,11 @@ public class GameplayScreen extends AbstractScreen {
 		initPlayerButton();
 		initResetScoreButton();
 		initScoreLabel();
-		initFlyingObjects();
+		initFlyingStuffController();
 	}
 
-	private void initFlyingObjects() {
-		flyingObject1 = new FlyingObject(FlyingObjectType.PASSIVE, game);
-		stage.addActor(flyingObject1);
-		flyingObject1.flyLikeHell();
+	private void initFlyingStuffController() {
+		flyingObjectController = new FlyingObjectController(game, stage);
 	}
 
 	private void initBg() {

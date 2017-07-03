@@ -41,7 +41,7 @@ public class FlyingObject extends Image {
 		this.setSize(WIDHT, HEIGHT);
 
 		playSpawnSound();
-		
+
 		// starting position
 		startingX = MathUtils.randomBoolean() ? STARTING_X_1 : STARTING_X_2;
 		this.setPosition(startingX, STARTING_Y);
@@ -61,6 +61,8 @@ public class FlyingObject extends Image {
 	private void playSpawnSound() {
 		if (FlyingObjectType.MONEY.equals(type)) {
 			game.getSoundService().playMoneySound();
+		} else {
+			game.getSoundService().playBookSound();
 		}
 	}
 
@@ -72,6 +74,7 @@ public class FlyingObject extends Image {
 			game.addPassiveIncome();
 		}
 
+		game.getSoundService().playPickSound();
 		FlyingObject.this.remove();
 	}
 

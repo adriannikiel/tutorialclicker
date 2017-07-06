@@ -64,7 +64,7 @@ public class GameplayScreen extends AbstractScreen {
 			@Override
 			public void onClick() {
 				player.reactOnClick();
-				game.addPoint();
+				game.getScoreService().addPoint();
 				game.getSoundService().playJumpSound();
 			}
 		});
@@ -76,7 +76,7 @@ public class GameplayScreen extends AbstractScreen {
 		resetScoreButton = new ResetScoreButton(new IClickCallback() {
 			@Override
 			public void onClick() {
-				game.resetGameScore();
+				game.getScoreService().resetGameScore();
 			}
 		});
 
@@ -94,7 +94,7 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void update() {
-		scoreLabel.setText("Score: " + game.getPoints());
+		scoreLabel.setText("Score: " + game.getScoreService().getPoints());
 		stage.act();
 	}
 

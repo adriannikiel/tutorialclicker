@@ -1,7 +1,5 @@
 package pl.javadevmatt.tutorialclicker.service;
 
-import java.util.concurrent.TimeUnit;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -26,20 +24,6 @@ public class ScoreService {
 		prefs = Gdx.app.getPreferences(GAME_PREFS);
 		loadScore();
 		loadPassiveIncome();
-		calculateGainedPassiveIncome();
-	}
-
-	private void calculateGainedPassiveIncome() {
-
-		long savedTimestamp = getSavedTimestamp();
-
-		if (savedTimestamp > 0) {
-			long millisPassed = TimeUtils.timeSinceMillis(savedTimestamp);
-			long seconds = TimeUnit.MILLISECONDS.toSeconds(millisPassed);
-			System.out.println("Passed seconds: " + seconds);
-		} else {
-
-		}
 	}
 
 	private void loadScore() {
@@ -85,7 +69,7 @@ public class ScoreService {
 		return passiveIncome;
 	}
 
-	private long getSavedTimestamp() {
+	public long getSavedTimestamp() {
 		return prefs.getLong(GAME_SAVED_TIMESTAMP);
 	}
 

@@ -1,5 +1,8 @@
 package pl.javadevmatt.tutorialclicker.service;
 
+import java.util.concurrent.TimeUnit;
+
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 
@@ -11,6 +14,7 @@ public class PassiveIncomeService {
 
 	public PassiveIncomeService(ScoreService scoreService) {
 		this.scoreService = scoreService;
+		calculateGainedPassiveIncome();
 	}
 
 	public void start() {
@@ -22,6 +26,19 @@ public class PassiveIncomeService {
 			}
 
 		}, 1, 1, INFINITE);
+	}
+
+	private void calculateGainedPassiveIncome() {
+
+		long savedTimestamp = scoreService.getSavedTimestamp();
+
+		if (savedTimestamp > 0) {
+			long millisPassed = TimeUtils.timeSinceMillis(savedTimestamp);
+			long seconds = TimeUnit.MILLISECONDS.toSeconds(millisPassed);
+			System.out.println("Passed seconds: " + seconds);
+		} else {
+
+		}
 	}
 
 }

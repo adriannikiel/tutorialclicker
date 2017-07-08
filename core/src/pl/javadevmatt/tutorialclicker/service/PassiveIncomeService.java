@@ -46,6 +46,7 @@ public class PassiveIncomeService {
 			int points = (int) (seconds * scoreService.getPassiveIncome());
 			points /= 5;
 			scoreService.addPoints(points);
+			System.out.println("Points added: " + points);
 		}
 	}
 

@@ -7,10 +7,12 @@ public class ScoreService {
 
 	public final static String GAME_PREFS = "pl.javadevmatt.preclicker.prefs";
 	public final static String GAME_SCORE = "pl.javadevmatt.preclicker.prefs.score";
+	public final static String GAME_PASSIVE_INCOME = "pl.javadevmatt.preclicker.prefs.passiveincome";
 
 	private Preferences prefs;
 
 	private int points;
+	private int passiveIncome;
 
 	public ScoreService() {
 		init();
@@ -25,29 +27,36 @@ public class ScoreService {
 		points = prefs.getInteger(GAME_SCORE);
 	}
 
+	private void loadPassiveIncome() {
+		passiveIncome = prefs.getInteger(GAME_PASSIVE_INCOME);
+	}
+
 	public void addPoints(int pointsToAdd) {
 		points += pointsToAdd;
-		updateSaveScoreInPrefs();
+		updateSaveScoreAndPassiveIncomeInPrefs();
 	}
 
 	public void addPoint() {
 		points++;
-		updateSaveScoreInPrefs();
+		updateSaveScoreAndPassiveIncomeInPrefs();
 	}
 
 	public void resetGameScore() {
 		points = 0;
-		updateSaveScoreInPrefs();
+		passiveIncome = 0;
+		updateSaveScoreAndPassiveIncomeInPrefs();
 	}
 
-	private void updateSaveScoreInPrefs() {
+	private void updateSaveScoreAndPassiveIncomeInPrefs() {
 		prefs.putInteger(GAME_SCORE, points);
+		prefs.putInteger(GAME_PASSIVE_INCOME, passiveIncome);
 		prefs.flush();
 	}
 
 	public void addPassiveIncome() {
-		// TODO implement
-		System.out.println("passive income click");
+		passiveIncome++;
+		updateSaveScoreAndPassiveIncomeInPrefs();
+		System.out.println("passive income: " + passiveIncome);
 	}
 
 	public int getPoints() {

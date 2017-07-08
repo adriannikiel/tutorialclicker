@@ -3,6 +3,7 @@ package pl.javadevmatt.tutorialclicker.screens;
 import pl.javadevmatt.tutorialclicker.TutorialClickerGame;
 import pl.javadevmatt.tutorialclicker.controllers.FlyingObjectController;
 import pl.javadevmatt.tutorialclicker.entities.Player;
+import pl.javadevmatt.tutorialclicker.service.PassiveIncomeService;
 import pl.javadevmatt.tutorialclicker.ui.IClickCallback;
 import pl.javadevmatt.tutorialclicker.ui.PlayerButton;
 import pl.javadevmatt.tutorialclicker.ui.ResetScoreButton;
@@ -20,6 +21,7 @@ public class GameplayScreen extends AbstractScreen {
 	private Button playerButton, resetScoreButton;
 	private Label scoreLabel;
 	private FlyingObjectController flyingObjectController;
+	private PassiveIncomeService passiveIncomeService;
 
 	public GameplayScreen(TutorialClickerGame game) {
 		super(game);
@@ -34,6 +36,27 @@ public class GameplayScreen extends AbstractScreen {
 		initScoreLabel();
 		initFlyingStuffController();
 		startTheMusic();
+		initPassiveIncomeService();
+	}
+
+	@Override
+	public void render(float delta) {
+		super.render(delta);
+		update();
+
+		spriteBatch.begin();
+		stage.draw();
+		spriteBatch.end();
+	}
+
+	private void update() {
+		scoreLabel.setText("Score: " + game.getScoreService().getPoints());
+		stage.act();
+	}
+
+	private void initPassiveIncomeService() {
+		passiveIncomeService = new PassiveIncomeService(game.getScoreService());
+		passiveIncomeService.start();
 	}
 
 	private void startTheMusic() {
@@ -81,21 +104,6 @@ public class GameplayScreen extends AbstractScreen {
 		});
 
 		stage.addActor(resetScoreButton);
-	}
-
-	@Override
-	public void render(float delta) {
-		super.render(delta);
-		update();
-
-		spriteBatch.begin();
-		stage.draw();
-		spriteBatch.end();
-	}
-
-	private void update() {
-		scoreLabel.setText("Score: " + game.getScoreService().getPoints());
-		stage.act();
 	}
 
 }

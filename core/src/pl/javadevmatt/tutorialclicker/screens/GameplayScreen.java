@@ -2,6 +2,7 @@ package pl.javadevmatt.tutorialclicker.screens;
 
 import pl.javadevmatt.tutorialclicker.TutorialClickerGame;
 import pl.javadevmatt.tutorialclicker.controllers.FlyingObjectController;
+import pl.javadevmatt.tutorialclicker.controllers.RandomEventController;
 import pl.javadevmatt.tutorialclicker.entities.Player;
 import pl.javadevmatt.tutorialclicker.service.PassiveIncomeService;
 import pl.javadevmatt.tutorialclicker.ui.BasicDialog;
@@ -22,6 +23,7 @@ public class GameplayScreen extends AbstractScreen {
 	private Button playerButton, resetScoreButton;
 	private Label scoreLabel;
 	private FlyingObjectController flyingObjectController;
+	private RandomEventController randomEventController;
 	private PassiveIncomeService passiveIncomeService;
 
 	public GameplayScreen(TutorialClickerGame game) {
@@ -39,6 +41,11 @@ public class GameplayScreen extends AbstractScreen {
 		startTheMusic();
 		initPassiveIncomeService();
 		initPassiveIncomeInfoDialog();
+		initRandomEventController();
+	}
+
+	private void initRandomEventController() {
+		randomEventController = new RandomEventController();
 	}
 
 	private void initPassiveIncomeInfoDialog() {

@@ -1,6 +1,7 @@
 package pl.javadevmatt.tutorialclicker;
 
 import pl.javadevmatt.tutorialclicker.screens.SplashScreen;
+import pl.javadevmatt.tutorialclicker.service.FeatureFlagService;
 import pl.javadevmatt.tutorialclicker.service.ScoreService;
 import pl.javadevmatt.tutorialclicker.service.SoundService;
 
@@ -15,6 +16,7 @@ public class TutorialClickerGame extends Game {
 
 	private SoundService soundService;
 	private ScoreService scoreService;
+	private FeatureFlagService featureFlagService;
 
 	private boolean paused;
 
@@ -27,6 +29,11 @@ public class TutorialClickerGame extends Game {
 	private void init() {
 		initSoundService();
 		initScoreService();
+		initFeatureFlagService();
+	}
+
+	private void initFeatureFlagService() {
+		featureFlagService = new FeatureFlagService();
 	}
 
 	private void initScoreService() {
@@ -56,6 +63,10 @@ public class TutorialClickerGame extends Game {
 
 	public ScoreService getScoreService() {
 		return scoreService;
+	}
+
+	public FeatureFlagService getFeatureFlagService() {
+		return featureFlagService;
 	}
 
 }

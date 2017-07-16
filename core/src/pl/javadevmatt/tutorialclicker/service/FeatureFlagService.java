@@ -53,8 +53,6 @@ public class FeatureFlagService {
 	}
 
 	protected void parseResponse(String resultAsString) {
-		System.out.println("Response: " + resultAsString);
-
 		try {
 			JSONObject obj = new JSONObject(resultAsString);
 			JSONArray jsonArray = obj.getJSONArray("features");

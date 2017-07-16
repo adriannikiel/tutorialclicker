@@ -1,5 +1,12 @@
 package pl.javadevmatt.tutorialclicker.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import pl.javadevmatt.tutorialclicker.IRequestCallback;
 
 import com.badlogic.gdx.Gdx;
@@ -14,7 +21,11 @@ public class FeatureFlagService {
 	public static final String REQUEST_URL = "http://adriannikiel.pythonanywhere.com/tutorialclicker/api/v1.0/features";
 	public static final String FEATURE_SHOP = "FEATURE_SHOP";
 
-	private boolean shop = false;
+	private Map<String, Boolean> featuresMap;
+
+	public FeatureFlagService() {
+		featuresMap = new HashMap<String, Boolean>();
+	}
 
 	public void makeFeatureFlagRequest(final IRequestCallback requestCallback) {
 		HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
@@ -23,10 +34,7 @@ public class FeatureFlagService {
 
 			@Override
 			public void handleHttpResponse(HttpResponse httpResponse) {
-				System.out.println("Result: ");
-				System.out.println(httpResponse.getResultAsString());
-				System.out.println("--------------------");
-
+				parseResponse(httpResponse.getResultAsString());
 				requestCallback.onSucceed();
 			}
 
@@ -44,12 +52,28 @@ public class FeatureFlagService {
 
 	}
 
-	public boolean hasShop() {
-		return shop;
+	protected void parseResponse(String resultAsString) {
+		System.out.println("Response: " + resultAsString);
+
+		try {
+			JSONObject obj = new JSONObject(resultAsString);
+			JSONArray jsonArray = obj.getJSONArray("features");
+
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject innerObj = jsonArray.getJSONObject(i);
+				featuresMap.put((String) innerObj.get("name"), (Boolean) innerObj.get("active"));
+			}
+			System.out.println("Parsed map: " + featuresMap);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void setShop(boolean shop) {
-		this.shop = shop;
+	public boolean hasFeature(String s) {
+		if (featuresMap.containsKey(s)) {
+			return featuresMap.get(s);
+		} else {
+			return false;
+		}
 	}
-
 }

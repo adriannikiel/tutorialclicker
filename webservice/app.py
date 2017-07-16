@@ -4,11 +4,11 @@ app = Flask(__name__)
 features = [
     {
         'name': 'FEATURE_BLA',
-        'done': False
+        'active': False
     },
     {
         'name': 'FEATURE_SHOP',
-        'done': True
+        'active': True
     }
 ]
 

@@ -26,13 +26,26 @@ public class SplashScreen extends AbstractScreen {
 			@Override
 			public void onSucceed() {
 				showError = false;
-				Gdx.app.postRunnable(new Runnable() {
-					
+
+				game.getBalanceService().makeBalanceServiceRequest(new IRequestCallback() {
+
 					@Override
-					public void run() {
-						game.setScreen(new GameplayScreen(game));
+					public void onSucceed() {
+						Gdx.app.postRunnable(new Runnable() {
+
+							@Override
+							public void run() {
+								game.setScreen(new GameplayScreen(game));
+							}
+						});
+					}
+
+					@Override
+					public void onError() {
+						showError = true;
 					}
 				});
+
 			}
 
 			@Override
@@ -47,13 +60,13 @@ public class SplashScreen extends AbstractScreen {
 		super.render(delta);
 
 		spriteBatch.begin();
-		
+
 		if (showError) {
 			spriteBatch.draw(noInternetImg, 0, 0);
 		} else {
 			spriteBatch.draw(splashImg, 0, 0);
 		}
-		
+
 		spriteBatch.end();
 	}
 

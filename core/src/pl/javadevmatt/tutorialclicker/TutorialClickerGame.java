@@ -1,7 +1,10 @@
 package pl.javadevmatt.tutorialclicker;
 
 import pl.javadevmatt.tutorialclicker.screens.SplashScreen;
+import pl.javadevmatt.tutorialclicker.service.BalanceService;
+import pl.javadevmatt.tutorialclicker.service.FeatureFlagService;
 import pl.javadevmatt.tutorialclicker.service.ScoreService;
+import pl.javadevmatt.tutorialclicker.service.ShopService;
 import pl.javadevmatt.tutorialclicker.service.SoundService;
 
 import com.badlogic.gdx.Game;
@@ -15,6 +18,9 @@ public class TutorialClickerGame extends Game {
 
 	private SoundService soundService;
 	private ScoreService scoreService;
+	private FeatureFlagService featureFlagService;
+	private BalanceService balanceService;
+	private ShopService shopService;
 
 	private boolean paused;
 
@@ -27,6 +33,21 @@ public class TutorialClickerGame extends Game {
 	private void init() {
 		initSoundService();
 		initScoreService();
+		initFeatureFlagService();
+		initBalanceService();
+		initShopService();
+	}
+
+	private void initBalanceService() {
+		balanceService = new BalanceService();
+	}
+
+	private void initShopService() {
+		shopService = new ShopService();
+	}
+
+	private void initFeatureFlagService() {
+		featureFlagService = new FeatureFlagService();
 	}
 
 	private void initScoreService() {
@@ -58,4 +79,15 @@ public class TutorialClickerGame extends Game {
 		return scoreService;
 	}
 
+	public FeatureFlagService getFeatureFlagService() {
+		return featureFlagService;
+	}
+
+	public ShopService getShopService() {
+		return shopService;
+	}
+
+	public BalanceService getBalanceService() {
+		return balanceService;
+	}
 }
